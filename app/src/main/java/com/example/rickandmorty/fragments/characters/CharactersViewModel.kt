@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.rickandmorty.network.ApiStatus
 import com.example.rickandmorty.network.responses.CharacterResponse
 import com.example.rickandmorty.network.ShowApi
+import com.example.rickandmorty.network.responses.CharacterInfoResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -28,6 +29,11 @@ class CharactersViewModel : ViewModel() {
     private val _characters = MutableLiveData<CharacterResponse>()
     val characters: LiveData<CharacterResponse>
         get() = _characters
+
+    // Navigation variable
+    private val _navigateToSelectedCharacter = MutableLiveData<CharacterInfoResponse>()
+    val navigateToSelectedCharacter: LiveData<CharacterInfoResponse>
+        get() = _navigateToSelectedCharacter
 
     init {
         getCharactersList()
@@ -52,5 +58,13 @@ class CharactersViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    fun displayCharacterDetail(characterInfoResponse: CharacterInfoResponse) {
+        _navigateToSelectedCharacter.value = characterInfoResponse
+    }
+
+    fun displayCharacterDetailComplete(){
+        _navigateToSelectedCharacter.value = null
     }
 }
