@@ -30,11 +30,11 @@ private val retrofit = Retrofit.Builder()
 
 
 /**
- * A public interface that exposes the [getCharacters] method
+ * A public interface that exposes the [getCharactersAsync] method
  */
 interface ApiService {
     @GET("character/")
-    fun getCharacters() :Deferred<CharacterResponse>
+    fun getCharactersAsync() : Deferred<CharacterResponse>
 }
 
 /**

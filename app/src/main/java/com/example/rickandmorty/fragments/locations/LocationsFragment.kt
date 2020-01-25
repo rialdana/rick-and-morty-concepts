@@ -1,4 +1,4 @@
-package com.example.rickandmorty.fragments
+package com.example.rickandmorty.fragments.locations
 
 
 import android.os.Bundle
@@ -12,14 +12,14 @@ import com.example.rickandmorty.R
 /**
  * A simple [Fragment] subclass.
  */
-class CharactersFragment : Fragment() {
+class LocationsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_characters, container, false)
+        return inflater.inflate(R.layout.fragment_locations, container, false)
     }
 
 

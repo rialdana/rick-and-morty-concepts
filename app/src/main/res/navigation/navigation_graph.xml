@@ -8,12 +8,12 @@
 
     <fragment
         android:id="@+id/charactersFragment"
-        android:name="com.example.rickandmorty.fragments.CharactersFragment"
+        android:name="com.example.rickandmorty.fragments.characters.CharactersFragment"
         android:label="fragment_characters"
         tools:layout="@layout/fragment_characters" />
     <fragment
         android:id="@+id/locationsFragment"
-        android:name="com.example.rickandmorty.fragments.LocationsFragment"
+        android:name="com.example.rickandmorty.fragments.locations.LocationsFragment"
         android:label="fragment_locations"
         tools:layout="@layout/fragment_locations" />
 </navigation>
