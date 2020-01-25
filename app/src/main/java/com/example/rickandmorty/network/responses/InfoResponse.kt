@@ -1,4 +1,4 @@
-package com.example.rickandmorty.network
+package com.example.rickandmorty.network.responses
 
 data class InfoResponse(
     val count: Int,

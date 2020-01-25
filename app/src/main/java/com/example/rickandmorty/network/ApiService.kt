@@ -1,5 +1,6 @@
 package com.example.rickandmorty.network
 
+import com.example.rickandmorty.network.responses.CharacterResponse
 import com.example.rickandmorty.utils.BASE_URL
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi

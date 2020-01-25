@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.rickandmorty.network.ApiStatus
-import com.example.rickandmorty.network.CharacterResponse
+import com.example.rickandmorty.network.responses.CharacterResponse
 import com.example.rickandmorty.network.ShowApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

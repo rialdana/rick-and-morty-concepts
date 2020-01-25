@@ -1,4 +1,4 @@
-package com.example.rickandmorty.network
+package com.example.rickandmorty.network.responses
 
 data class CharacterInfoResponse(
     val id : Int,
@@ -7,8 +7,8 @@ data class CharacterInfoResponse(
     val species: String,
     val type: String,
     val gender: String,
-    val origin: OriginResponse,
-    val location: OriginResponse,
+    val origin: GeneralDataResponse,
+    val location: GeneralDataResponse,
     val image: String,
     val episode: List<String>,
     val url: String,

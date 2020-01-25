@@ -31,7 +31,9 @@ class CharactersFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-
+        binding.charactersList.adapter = CharactersAdapter(CharactersAdapter.OnClickListener{
+            //
+        })
 
         return  binding.root
     }

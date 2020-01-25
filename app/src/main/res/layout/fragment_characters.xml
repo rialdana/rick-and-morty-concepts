@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.rickandmorty.fragments.characters.CharactersViewModel" />
@@ -15,12 +16,17 @@
         tools:context=".fragments.characters.CharactersFragment">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/characters_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="2dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:listData="@{viewModel.characters.results}"
+            tools:listitem="@layout/list_item_character_profile" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
