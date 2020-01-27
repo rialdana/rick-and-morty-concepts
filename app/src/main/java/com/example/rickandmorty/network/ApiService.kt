@@ -1,7 +1,8 @@
 package com.example.rickandmorty.network
 
-import com.example.rickandmorty.network.responses.CharacterInfoResponse
-import com.example.rickandmorty.network.responses.CharacterResponse
+import com.example.rickandmorty.network.responses.CharacterDetailResponse
+import com.example.rickandmorty.network.responses.CharactersResponse
+import com.example.rickandmorty.network.responses.LocationsResponse
 import com.example.rickandmorty.utils.BASE_URL
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
@@ -33,14 +34,31 @@ private val retrofit = Retrofit.Builder()
 
 
 /**
- * A public interface that exposes the [getCharactersAsync] method
+ * A public interface that exposes the apiCall methods
  */
 interface ApiService {
-    @GET("character/")
-    fun getCharactersAsync() : Deferred<CharacterResponse>
 
+    /*
+     * This method returns a list of characters from the endpoint
+     */
+    @GET("character/")
+    fun getCharactersAsync() : Deferred<CharactersResponse>
+
+    /*
+     * This method returns the specific characterId information
+     * by sending the characterId as a parameter
+     *
+     * @param characterId
+     * @return
+     */
     @GET("character/{characterId}")
-    fun getCharacterDetail(@Path("characterId") characterId: Int) : Deferred<CharacterInfoResponse>
+    fun getCharacterDetailAsync(@Path("characterId") characterId: Int) : Deferred<CharacterDetailResponse>
+
+    /*
+     * This method returns the list of locations from the endpoint
+     */
+    @GET("location/")
+    fun getLocationsAsync() : Deferred<LocationsResponse>
 }
 
 /**

@@ -7,7 +7,7 @@
 
         <variable
             name="character"
-            type="com.example.rickandmorty.network.responses.CharacterInfoResponse" />
+            type="com.example.rickandmorty.network.responses.CharacterDetailResponse" />
     </data>
 
     <androidx.cardview.widget.CardView

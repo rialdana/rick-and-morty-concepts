@@ -6,22 +6,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmorty.databinding.ListItemCharacterProfileBinding
-import com.example.rickandmorty.network.responses.CharacterInfoResponse
+import com.example.rickandmorty.network.responses.CharacterDetailResponse
 
 class CharactersAdapter (val onClickListener: OnClickListener) :
-    ListAdapter<CharacterInfoResponse, CharactersAdapter.CharacterViewHolder>(DiffCallback) {
+    ListAdapter<CharacterDetailResponse, CharactersAdapter.CharacterViewHolder>(DiffCallback) {
 
-    companion object DiffCallback : DiffUtil.ItemCallback<CharacterInfoResponse>(){
+    companion object DiffCallback : DiffUtil.ItemCallback<CharacterDetailResponse>(){
         override fun areItemsTheSame(
-            oldItem: CharacterInfoResponse,
-            newItem: CharacterInfoResponse
+            oldItem: CharacterDetailResponse,
+            newItem: CharacterDetailResponse
         ): Boolean {
             return oldItem === newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: CharacterInfoResponse,
-            newItem: CharacterInfoResponse
+            oldItem: CharacterDetailResponse,
+            newItem: CharacterDetailResponse
         ): Boolean {
             return oldItem.id == newItem.id
         }
@@ -31,14 +31,14 @@ class CharactersAdapter (val onClickListener: OnClickListener) :
     class CharacterViewHolder(private val binding: ListItemCharacterProfileBinding) :
             RecyclerView.ViewHolder(binding.root){
 
-        fun bind(characterInfo: CharacterInfoResponse){
+        fun bind(characterInfo: CharacterDetailResponse){
             binding.character = characterInfo
             binding.executePendingBindings()
         }
     }
 
-    class OnClickListener(val clickListener: (characterInfo: CharacterInfoResponse) -> Unit){
-        fun onClick(characterInfo: CharacterInfoResponse) = clickListener(characterInfo)
+    class OnClickListener(val clickListener: (characterInfo: CharacterDetailResponse) -> Unit){
+        fun onClick(characterInfo: CharacterDetailResponse) = clickListener(characterInfo)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {

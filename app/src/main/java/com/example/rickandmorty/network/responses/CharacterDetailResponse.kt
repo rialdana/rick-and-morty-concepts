@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class CharacterInfoResponse(
+data class CharacterDetailResponse(
     val id : Int,
     val name: String,
     val status: String,

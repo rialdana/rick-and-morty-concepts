@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.rickandmorty.network.ApiStatus
-import com.example.rickandmorty.network.responses.CharacterResponse
+import com.example.rickandmorty.network.responses.CharactersResponse
 import com.example.rickandmorty.network.ShowApi
-import com.example.rickandmorty.network.responses.CharacterInfoResponse
+import com.example.rickandmorty.network.responses.CharacterDetailResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -26,13 +26,13 @@ class CharactersViewModel : ViewModel() {
         get() = _status
 
     // Characters list variables
-    private val _characters = MutableLiveData<CharacterResponse>()
-    val characters: LiveData<CharacterResponse>
+    private val _characters = MutableLiveData<CharactersResponse>()
+    val characters: LiveData<CharactersResponse>
         get() = _characters
 
     // Navigation variable
-    private val _navigateToSelectedCharacter = MutableLiveData<CharacterInfoResponse>()
-    val navigateToSelectedCharacter: LiveData<CharacterInfoResponse>
+    private val _navigateToSelectedCharacter = MutableLiveData<CharacterDetailResponse>()
+    val navigateToSelectedCharacter: LiveData<CharacterDetailResponse>
         get() = _navigateToSelectedCharacter
 
     init {
@@ -77,7 +77,7 @@ class CharactersViewModel : ViewModel() {
      * @param characterInfoResponse
      */
 
-    fun displayCharacterDetail(characterInfoResponse: CharacterInfoResponse) {
+    fun displayCharacterDetail(characterInfoResponse: CharacterDetailResponse) {
         _navigateToSelectedCharacter.value = characterInfoResponse
     }
 

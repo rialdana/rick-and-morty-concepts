@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.rickandmorty.network.ApiStatus
 import com.example.rickandmorty.network.ShowApi
-import com.example.rickandmorty.network.responses.CharacterInfoResponse
+import com.example.rickandmorty.network.responses.CharacterDetailResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -19,8 +19,8 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
     private val _selectedCharacterId = MutableLiveData<Int>()
 
     // Object that holds the character Info from the API REST
-    private val _selectedCharacterInfo = MutableLiveData<CharacterInfoResponse>()
-    val selectedCharacterInfo: LiveData<CharacterInfoResponse>
+    private val _selectedCharacterInfo = MutableLiveData<CharacterDetailResponse>()
+    val selectedCharacterInfo: LiveData<CharacterDetailResponse>
         get() = _selectedCharacterInfo
 
     // List that contains the ID of the episodes that this character has been involved in
@@ -51,7 +51,7 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
     private fun getCharacterDetail(characterId: Int) {
         coroutineScope.launch {
             _status.value = ApiStatus.LOADING
-            val getCharacterDetailDeferred = ShowApi.retrofitService.getCharacterDetail(characterId)
+            val getCharacterDetailDeferred = ShowApi.retrofitService.getCharacterDetailAsync(characterId)
             try {
                 val characterInfo = getCharacterDetailDeferred.await()
 

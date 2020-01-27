@@ -9,10 +9,10 @@ import com.bumptech.glide.Glide
 import com.example.rickandmorty.fragments.characterDetail.EpisodesAdapter
 import com.example.rickandmorty.fragments.characters.CharactersAdapter
 import com.example.rickandmorty.network.ApiStatus
-import com.example.rickandmorty.network.responses.CharacterInfoResponse
+import com.example.rickandmorty.network.responses.CharacterDetailResponse
 
 /**
- * This binding adapter sets a list of [CharacterInfoResponse]
+ * This binding adapter sets a list of [CharacterDetailResponse]
  * into a recyclerView that is injected by the XML view when
  * it calls the binding adapter. It used [CharactersAdapter]
  *
@@ -20,7 +20,7 @@ import com.example.rickandmorty.network.responses.CharacterInfoResponse
  * @param data
  */
 @BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<CharacterInfoResponse>?){
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<CharacterDetailResponse>?){
     val adapter = recyclerView.adapter as CharactersAdapter
     adapter.submitList(data)
 }
