@@ -6,10 +6,12 @@ import android.widget.ProgressBar
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.rickandmorty.adapters.LocationsAdapter
 import com.example.rickandmorty.fragments.characterDetail.EpisodesAdapter
 import com.example.rickandmorty.fragments.characters.CharactersAdapter
 import com.example.rickandmorty.network.ApiStatus
 import com.example.rickandmorty.network.responses.CharacterDetailResponse
+import com.example.rickandmorty.network.responses.LocationDetailResponse
 
 /**
  * This binding adapter sets a list of [CharacterDetailResponse]
@@ -36,6 +38,21 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<CharacterDetailRespo
 fun bindGridView(recyclerView: RecyclerView, data: List<Int>?){
     data?.let {
         val adapter = recyclerView.adapter as EpisodesAdapter
+        adapter.submitList(data)
+    }
+}
+
+/**
+ * This binding adapter sets a list of [LocationDetailResponse] objects
+ * to a recyclerView with GridLayoutManager using [LocationsAdapter]
+ *
+ * @param recyclerView
+ * @param data
+ */
+@BindingAdapter("gridLocationsData")
+fun bindGridViewLocations(recyclerView: RecyclerView, data: List<LocationDetailResponse>?){
+    data?.let {
+        val adapter = recyclerView.adapter as LocationsAdapter
         adapter.submitList(data)
     }
 }

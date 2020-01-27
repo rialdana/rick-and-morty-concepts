@@ -1,5 +1,6 @@
 package com.example.rickandmorty.fragments.locations
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -32,7 +33,7 @@ class LocationsViewModel : ViewModel(){
         getLocationsList()
     }
 
-    fun getLocationsList(){
+    private fun getLocationsList(){
         coroutineScope.launch {
             val getLocationsDeferred = ShowApi.retrofitService.getLocationsAsync()
             try {
@@ -42,7 +43,7 @@ class LocationsViewModel : ViewModel(){
                 _locations.value = locationsList
 
             }catch (ex: Exception){
-                ex.printStackTrace()
+                Log.e("LocationsViewModel", "Error getting the locations", ex)
                 _status.value = ApiStatus.ERROR
             }
         }
