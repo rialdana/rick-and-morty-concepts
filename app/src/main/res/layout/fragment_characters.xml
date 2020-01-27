@@ -28,5 +28,15 @@
             app:listData="@{viewModel.characters.results}"
             tools:listitem="@layout/list_item_character_profile" />
 
+        <ProgressBar
+            android:id="@+id/progress_bar_characters"
+            app:apiCallStatus="@{viewModel.status}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

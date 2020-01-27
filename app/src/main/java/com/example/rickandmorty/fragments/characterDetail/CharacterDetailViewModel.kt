@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.rickandmorty.network.ApiStatus
 import com.example.rickandmorty.network.ShowApi
 import com.example.rickandmorty.network.responses.CharacterInfoResponse
 import kotlinx.coroutines.CoroutineScope
@@ -23,6 +24,11 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
     val selectedCharacterEpisodesList: LiveData<List<Int>>
         get() = _selectedCharacterEpisodesList
 
+    // API call status variables
+    private val _status = MutableLiveData<ApiStatus>()
+    val status: LiveData<ApiStatus>
+        get() = _status
+
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
@@ -33,14 +39,17 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
 
     private fun getCharacterDetail(characterId: Int) {
         coroutineScope.launch {
+            _status.value = ApiStatus.LOADING
             val getCharacterDetailDeferred = ShowApi.retrofitService.getCharacterDetail(characterId)
             try {
                 val characterInfo = getCharacterDetailDeferred.await()
 
                 _selectedCharacterInfo.value = characterInfo
+                _status.value = ApiStatus.DONE
                 getEpisodesId()
             } catch (e: Exception) {
                 _selectedCharacterInfo.value = null
+                _status.value = ApiStatus.ERROR
             }
         }
     }
