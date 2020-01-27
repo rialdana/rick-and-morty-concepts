@@ -1,6 +1,7 @@
 package com.example.rickandmorty.fragments.characterDetail
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,6 +19,10 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
     val selectedCharacterInfo: LiveData<CharacterInfoResponse>
         get() = _selectedCharacterInfo
 
+    private val _selectedCharacterEpisodesList = MutableLiveData<List<Int>>()
+    val selectedCharacterEpisodesList: LiveData<List<Int>>
+        get() = _selectedCharacterEpisodesList
+
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
@@ -33,9 +38,25 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
                 val characterInfo = getCharacterDetailDeferred.await()
 
                 _selectedCharacterInfo.value = characterInfo
+                getEpisodesId()
             } catch (e: Exception) {
                 _selectedCharacterInfo.value = null
             }
+        }
+    }
+
+    private fun getEpisodesId(){
+        coroutineScope.launch {
+            val episodesId: MutableList<Int> = arrayListOf()
+            _selectedCharacterInfo.value?.episode?.forEach { episodeUrl ->
+
+                val episodeId: Int =  episodeUrl.replace("https://rickandmortyapi.com/api/episode/", "").trim().toInt()
+                Log.i("EpisodeID", episodeId.toString())
+                episodesId.add(
+                    episodeId
+                )
+            }
+            _selectedCharacterEpisodesList.value = episodesId
         }
     }
 

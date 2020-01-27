@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.rickandmorty.fragments.characterDetail.CharacterDetailViewModel" />
@@ -38,7 +39,7 @@
                     app:cardCornerRadius="1000dp"
                     app:cardElevation="2dp"
                     app:cardMaxElevation="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -58,21 +59,21 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@{viewModel.selectedCharacterInfo.name}"
+                    android:text="@{`Name: ` + viewModel.selectedCharacterInfo.name}"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/cardView"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
                 <TextView
                     android:id="@+id/text_character_detail_gender"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@{viewModel.selectedCharacterInfo.gender}"
+                    android:text="@{`Gender: ` + viewModel.selectedCharacterInfo.gender}"
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="@+id/text_character_detail_name"
                     app:layout_constraintStart_toStartOf="@+id/text_character_detail_name"
@@ -84,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@{viewModel.selectedCharacterInfo.status}"
+                    android:text="@{`Status: ` + viewModel.selectedCharacterInfo.status}"
                     android:textAlignment="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/text_character_detail_gender"
@@ -92,7 +93,59 @@
                     app:layout_constraintTop_toBottomOf="@+id/text_character_detail_gender"
                     app:layout_constraintVertical_bias="0.0" />
 
+                <TextView
+                    android:id="@+id/text_character_detail_location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@{`Location: ` + viewModel.selectedCharacterInfo.location.name}"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="@+id/text_character_detail_status"
+                    app:layout_constraintStart_toStartOf="@+id/text_character_detail_status"
+                    app:layout_constraintTop_toBottomOf="@+id/text_character_detail_status" />
+
+                <TextView
+                    android:id="@+id/text_character_detail_origin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@{`Origin: ` + viewModel.selectedCharacterInfo.origin.name}"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="@+id/text_character_detail_status"
+                    app:layout_constraintStart_toStartOf="@+id/text_character_detail_status"
+                    app:layout_constraintTop_toBottomOf="@id/text_character_detail_location"
+                    tools:layout_editor_absoluteY="269dp" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation_dimen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/grid_episodes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:padding="8dp"
+                app:gridEpisodesData="@{viewModel.selectedCharacterEpisodesList}"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/list_item_episode" />
+
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

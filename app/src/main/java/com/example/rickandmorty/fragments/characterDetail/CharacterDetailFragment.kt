@@ -31,6 +31,10 @@ class CharacterDetailFragment : Fragment() {
 
         binding.viewModel = ViewModelProviders.of(this, viewModelFactory).get(CharacterDetailViewModel::class.java)
 
+        binding.gridEpisodes.adapter = EpisodesAdapter(EpisodesAdapter.OnClickListener{
+
+        })
+
         return binding.root
     }
 
