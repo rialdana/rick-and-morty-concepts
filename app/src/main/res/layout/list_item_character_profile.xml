@@ -41,7 +41,7 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/text_character_name"
+                android:id="@+id/text_character_detail_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -62,10 +62,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@{`Gender: ` + character.gender}"
-                app:layout_constraintEnd_toEndOf="@+id/text_character_name"
+                app:layout_constraintEnd_toEndOf="@+id/text_character_detail_name"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/text_character_name"
-                app:layout_constraintTop_toBottomOf="@+id/text_character_name" />
+                app:layout_constraintStart_toStartOf="@+id/text_character_detail_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_character_detail_name" />
 
             <TextView
                 android:id="@+id/text_character_status"

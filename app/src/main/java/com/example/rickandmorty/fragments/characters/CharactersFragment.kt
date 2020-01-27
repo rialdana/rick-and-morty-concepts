@@ -40,7 +40,7 @@ class CharactersFragment : Fragment() {
         viewModel.navigateToSelectedCharacter.observe(viewLifecycleOwner, Observer { character ->
             character?.let {
                 this.findNavController().navigate(
-                    CharactersFragmentDirections.actionCharactersFragmentToCharacterDetailFragment(character)
+                    CharactersFragmentDirections.actionCharactersFragmentToCharacterDetailFragment(character.id)
                 )
                 viewModel.displayCharacterDetailComplete()
             }
