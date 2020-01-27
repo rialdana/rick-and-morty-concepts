@@ -39,6 +39,11 @@ class CharactersViewModel : ViewModel() {
         getCharactersList()
     }
 
+    /*
+     * This method will get the list of characters
+     * from the API REST
+     */
+
     private fun getCharactersList() {
         coroutineScope.launch {
             val getCharactersDeferred = ShowApi.retrofitService.getCharactersAsync()
@@ -55,14 +60,32 @@ class CharactersViewModel : ViewModel() {
         }
     }
 
+    /*
+     * Clearing the viewModelJob to make sure
+     * that coroutines won't remain in the system even
+     * when the view model is destroyed
+     */
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }
 
+    /*
+     * This method helps us to navigate to the selected character
+     *
+     * @param characterInfoResponse
+     */
+
     fun displayCharacterDetail(characterInfoResponse: CharacterInfoResponse) {
         _navigateToSelectedCharacter.value = characterInfoResponse
     }
+
+    /*
+     * This method resets the navigation variable
+     * so we don't navigate again to the same destination
+     * by mistake
+     */
 
     fun displayCharacterDetailComplete(){
         _navigateToSelectedCharacter.value = null

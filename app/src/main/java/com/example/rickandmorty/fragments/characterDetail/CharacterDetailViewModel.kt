@@ -14,12 +14,16 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidViewModel(app) {
+
+    // Variable that holds the character ID from the safe args and constructor
     private val _selectedCharacterId = MutableLiveData<Int>()
 
+    // Object that holds the character Info from the API REST
     private val _selectedCharacterInfo = MutableLiveData<CharacterInfoResponse>()
     val selectedCharacterInfo: LiveData<CharacterInfoResponse>
         get() = _selectedCharacterInfo
 
+    // List that contains the ID of the episodes that this character has been involved in
     private val _selectedCharacterEpisodesList = MutableLiveData<List<Int>>()
     val selectedCharacterEpisodesList: LiveData<List<Int>>
         get() = _selectedCharacterEpisodesList
@@ -29,6 +33,7 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
     val status: LiveData<ApiStatus>
         get() = _status
 
+    // Kotlin coroutines related variables
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
@@ -36,6 +41,12 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
         _selectedCharacterId.value = characterId
         getCharacterDetail(_selectedCharacterId.value!!)
     }
+
+    /*
+        This function will launch a corutine that will try to retrieve
+        the character detail from the API rest, in case it's not possible,
+        it will throw an exception
+     */
 
     private fun getCharacterDetail(characterId: Int) {
         coroutineScope.launch {
@@ -54,6 +65,10 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
         }
     }
 
+    /*
+        This function will order the episodes Id, it will remove
+        the URL from the String and get only the Integer value
+     */
     private fun getEpisodesId(){
         coroutineScope.launch {
             val episodesId: MutableList<Int> = arrayListOf()
@@ -68,6 +83,11 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
             _selectedCharacterEpisodesList.value = episodesId
         }
     }
+
+    /*
+        This method is also used to cancel the viewModelJob, which
+        will close or cancel any open coroutine
+     */
 
     override fun onCleared() {
         super.onCleared()

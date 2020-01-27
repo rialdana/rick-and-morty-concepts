@@ -29,19 +29,35 @@ class CharactersFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentCharactersBinding.inflate(inflater)
 
+        // Setting the lifecycle owner to make sure
+        // that Live data will be updated
+
         binding.lifecycleOwner = this
 
+        // Sending the viewmodel to the binding object
         binding.viewModel = viewModel
 
+        // Setting the click listener for each character in the recycler view
         binding.charactersList.adapter = CharactersAdapter(CharactersAdapter.OnClickListener{
             viewModel.displayCharacterDetail(it)
         })
 
+        // Listening to the navigation variable
+        // that comes from the viewModel
         viewModel.navigateToSelectedCharacter.observe(viewLifecycleOwner, Observer { character ->
             character?.let {
                 this.findNavController().navigate(
+
+                    // Navigating to the detail fragment, and also sending
+                    // the parameter as required through safe args
+
                     CharactersFragmentDirections.actionCharactersFragmentToCharacterDetailFragment(character.id)
                 )
+
+                // Once we navigate, the navigateToSelectedCharacter property is cleared
+                // So if the user goes back by pressing the back button, this fragment
+                // won't navigate by accident
+
                 viewModel.displayCharacterDetailComplete()
             }
 

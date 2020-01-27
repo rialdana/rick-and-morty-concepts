@@ -4,6 +4,14 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
+/**
+ * View model factory that helps us
+ * to pass parameters to the viewModel constructor
+ *
+ * @property characterId
+ * @property app
+ */
+
 class CharacterDetailViewModelFactory (
     private val characterId: Int,
     private val app: Application
