@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class LocationDetailResponse(
     val id: Int,
     val name: String,
-    val dimensions: String,
+    val dimension: String,
     val residents: List<String>,
     val url: String,
     val created: String

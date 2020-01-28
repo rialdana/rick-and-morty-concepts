@@ -1,4 +1,4 @@
-package com.example.rickandmorty.fragments.characterDetail
+package com.example.rickandmorty.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,8 +14,10 @@ import com.example.rickandmorty.databinding.ListItemEpisodeBinding
  *
  * @property onClickListener
  */
-class EpisodesAdapter (val onClickListener: OnClickListener):
-    ListAdapter<Int, EpisodesAdapter.EpisodeViewHolder>(DiffCallBack)
+class EpisodesAdapter (private val onClickListener: OnClickListener):
+    ListAdapter<Int, EpisodesAdapter.EpisodeViewHolder>(
+        DiffCallBack
+    )
 {
 
     /*
@@ -51,21 +53,26 @@ class EpisodesAdapter (val onClickListener: OnClickListener):
 
     class EpisodeViewHolder(private val binding: ListItemEpisodeBinding) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(episodeId: Int){
+        fun bind(
+            episodeId: Int,
+            onClickListener: OnClickListener
+        ){
             binding.episodeId = episodeId
+            binding.chipButton.setOnClickListener {
+                onClickListener.onClick(episodeId)
+            }
             binding.executePendingBindings()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EpisodeViewHolder {
-        return EpisodeViewHolder(ListItemEpisodeBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return EpisodeViewHolder(
+            ListItemEpisodeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: EpisodeViewHolder, position: Int) {
         val episodeId = getItem(position)
-        holder.itemView.setOnClickListener {
-            onClickListener.onClick(episodeId)
-        }
-        holder.bind(episodeId)
+        holder.bind(episodeId, onClickListener)
     }
 }

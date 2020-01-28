@@ -1,4 +1,4 @@
-package com.example.rickandmorty.fragments.characters
+package com.example.rickandmorty.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,9 @@ import com.example.rickandmorty.databinding.ListItemCharacterProfileBinding
 import com.example.rickandmorty.network.responses.CharacterDetailResponse
 
 class CharactersAdapter (val onClickListener: OnClickListener) :
-    ListAdapter<CharacterDetailResponse, CharactersAdapter.CharacterViewHolder>(DiffCallback) {
+    ListAdapter<CharacterDetailResponse, CharactersAdapter.CharacterViewHolder>(
+        DiffCallback
+    ) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<CharacterDetailResponse>(){
         override fun areItemsTheSame(
@@ -42,7 +44,13 @@ class CharactersAdapter (val onClickListener: OnClickListener) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
-        return CharacterViewHolder(ListItemCharacterProfileBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return CharacterViewHolder(
+            ListItemCharacterProfileBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {

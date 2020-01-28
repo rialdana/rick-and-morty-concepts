@@ -50,9 +50,9 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
 
     private fun getCharacterDetail(characterId: Int) {
         coroutineScope.launch {
-            _status.value = ApiStatus.LOADING
             val getCharacterDetailDeferred = ShowApi.retrofitService.getCharacterDetailAsync(characterId)
             try {
+                _status.value = ApiStatus.LOADING
                 val characterInfo = getCharacterDetailDeferred.await()
 
                 _selectedCharacterInfo.value = characterInfo

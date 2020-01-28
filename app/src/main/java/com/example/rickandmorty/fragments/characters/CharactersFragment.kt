@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 
-import com.example.rickandmorty.R
+import com.example.rickandmorty.adapters.CharactersAdapter
 import com.example.rickandmorty.databinding.FragmentCharactersBinding
 
 /**
@@ -38,9 +38,11 @@ class CharactersFragment : Fragment() {
         binding.viewModel = viewModel
 
         // Setting the click listener for each character in the recycler view
-        binding.charactersList.adapter = CharactersAdapter(CharactersAdapter.OnClickListener{
-            viewModel.displayCharacterDetail(it)
-        })
+        binding.charactersList.adapter =
+            CharactersAdapter(
+                CharactersAdapter.OnClickListener {
+                    viewModel.displayCharacterDetail(it)
+                })
 
         // Listening to the navigation variable
         // that comes from the viewModel

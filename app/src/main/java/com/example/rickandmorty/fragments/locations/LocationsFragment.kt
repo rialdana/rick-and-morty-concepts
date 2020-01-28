@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 
 import com.example.rickandmorty.R
+import com.example.rickandmorty.adapters.LocationsAdapter
 import com.example.rickandmorty.databinding.FragmentLocationsBinding
 import com.example.rickandmorty.fragments.characters.CharactersViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class LocationsFragment : Fragment() {
 
@@ -27,6 +29,13 @@ class LocationsFragment : Fragment() {
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        binding.gridLocations.adapter = LocationsAdapter(LocationsAdapter.OnClickListener {
+            Snackbar.make(
+                binding.gridLocations,
+                it.name, Snackbar.LENGTH_SHORT
+            ).show()
+        })
 
         return binding.root
     }

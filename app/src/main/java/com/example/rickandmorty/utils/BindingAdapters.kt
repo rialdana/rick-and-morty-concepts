@@ -7,8 +7,8 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.rickandmorty.adapters.LocationsAdapter
-import com.example.rickandmorty.fragments.characterDetail.EpisodesAdapter
-import com.example.rickandmorty.fragments.characters.CharactersAdapter
+import com.example.rickandmorty.adapters.EpisodesAdapter
+import com.example.rickandmorty.adapters.CharactersAdapter
 import com.example.rickandmorty.network.ApiStatus
 import com.example.rickandmorty.network.responses.CharacterDetailResponse
 import com.example.rickandmorty.network.responses.LocationDetailResponse
@@ -25,6 +25,27 @@ import com.example.rickandmorty.network.responses.LocationDetailResponse
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<CharacterDetailResponse>?){
     val adapter = recyclerView.adapter as CharactersAdapter
     adapter.submitList(data)
+}
+
+/**
+ * This binding adapter changes the visibility of any [View] based on
+ * the [ApiStatus] parameter, this is helpful to hide detailed views
+ * when the api is being called, so that we do not show textviews with
+ * NULL value to our user
+ */
+@BindingAdapter("apiVisibility")
+fun bindApiVisibility(view: View, status: ApiStatus?){
+    when(status){
+        ApiStatus.DONE -> {
+            view.visibility = View.VISIBLE
+        }
+        ApiStatus.LOADING -> {
+            view.visibility = View.GONE
+        }
+        ApiStatus.ERROR -> {
+            view.visibility = View.GONE
+        }
+    }
 }
 
 /**
