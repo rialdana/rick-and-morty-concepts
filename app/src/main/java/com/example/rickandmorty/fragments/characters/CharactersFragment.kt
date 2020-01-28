@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 
@@ -18,9 +19,7 @@ import com.example.rickandmorty.databinding.FragmentCharactersBinding
  */
 class CharactersFragment : Fragment() {
 
-    private val viewModel: CharactersViewModel by lazy {
-        ViewModelProviders.of(this).get(CharactersViewModel::class.java)
-    }
+    private lateinit var viewModel: CharactersViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +32,10 @@ class CharactersFragment : Fragment() {
         // that Live data will be updated
 
         binding.lifecycleOwner = this
+
+        viewModel = activity?.run {
+            ViewModelProvider(this)[CharactersViewModel::class.java]
+        }?: throw Exception("Invalid activity")
 
         // Sending the viewmodel to the binding object
         binding.viewModel = viewModel

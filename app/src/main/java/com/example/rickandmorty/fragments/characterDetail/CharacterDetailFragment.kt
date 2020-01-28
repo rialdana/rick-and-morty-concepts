@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 
 import com.example.rickandmorty.adapters.EpisodesAdapter
 import com.example.rickandmorty.databinding.FragmentCharacterDetailBinding
 import com.google.android.material.snackbar.Snackbar
+import java.lang.Exception
 
 /**
  * A simple [Fragment] subclass.
@@ -38,8 +40,9 @@ class CharacterDetailFragment : Fragment() {
         val viewModelFactory = CharacterDetailViewModelFactory(characterId, application)
 
         // Sending the viewModel to the view using data binding
-        binding.viewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(CharacterDetailViewModel::class.java)
+        binding.viewModel = activity?.run {
+            ViewModelProvider(this, viewModelFactory)[CharacterDetailViewModel::class.java]
+        }?: throw Exception("Invalid activity")
 
         // Setting the onClickListener for the items in the grid
         binding.gridEpisodes.adapter = EpisodesAdapter(EpisodesAdapter.OnClickListener {
