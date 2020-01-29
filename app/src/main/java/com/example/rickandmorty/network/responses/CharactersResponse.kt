@@ -24,7 +24,6 @@ fun CharactersResponse.asDatabaseModel(): Array<DatabaseCharacterDetail> {
             locationName = it.location.name,
             locationUrl = it.location.url,
             image = it.image,
-            episode = it.episode,
             url = it.url,
             created = it.created
         )

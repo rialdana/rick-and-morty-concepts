@@ -13,13 +13,20 @@ import androidx.navigation.fragment.findNavController
 
 import com.example.rickandmorty.adapters.CharactersAdapter
 import com.example.rickandmorty.databinding.FragmentCharactersBinding
+import com.example.rickandmorty.network.ApiStatus
 
 /**
  * A simple [Fragment] subclass.
  */
 class CharactersFragment : Fragment() {
 
-    private lateinit var viewModel: CharactersViewModel
+    private val viewModel: CharactersViewModel by lazy {
+        val activity = requireNotNull(this.activity){
+
+        }
+        ViewModelProviders.of(this, CharactersViewModel.Factory(activity.application))
+            .get(CharactersViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,10 +39,6 @@ class CharactersFragment : Fragment() {
         // that Live data will be updated
 
         binding.lifecycleOwner = this
-
-        viewModel = activity?.run {
-            ViewModelProvider(this)[CharactersViewModel::class.java]
-        }?: throw Exception("Invalid activity")
 
         // Sending the viewmodel to the binding object
         binding.viewModel = viewModel
@@ -64,6 +67,15 @@ class CharactersFragment : Fragment() {
                 // won't navigate by accident
 
                 viewModel.displayCharacterDetailComplete()
+            }
+
+        })
+
+        viewModel.characters.observe(viewLifecycleOwner, Observer { list ->
+            if (list == null || list.isEmpty()){
+                viewModel.setApiStatus(ApiStatus.LOADING)
+            }else{
+                viewModel.setApiStatus(ApiStatus.DONE)
             }
 
         })

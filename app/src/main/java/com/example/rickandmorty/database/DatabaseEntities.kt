@@ -19,7 +19,6 @@ data class DatabaseCharacterDetail constructor(
     val locationName: String,
     val locationUrl: String,
     val image: String,
-    val episode: List<String>,
     val url: String,
     val created: String
 )
@@ -35,8 +34,8 @@ fun List<DatabaseCharacterDetail>.asDomainModel(): List<CharacterDetailResponse>
             gender = it.gender,
             origin = GeneralDataResponse(it.originName, it.originUrl),
             location = GeneralDataResponse(it.locationName, it.locationUrl),
+            episode = arrayListOf(),
             image = it.image,
-            episode = it.episode,
             url = it.url,
             created = it.created
         )

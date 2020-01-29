@@ -24,7 +24,7 @@ private lateinit var INSTANCE: RmDatabase
 fun getDatabase(context: Context) : RmDatabase {
     if (!::INSTANCE.isInitialized){
         INSTANCE = Room.databaseBuilder(context.applicationContext,
-            RmDatabase::class.java, "RickAndMortyDb").build()
+            RmDatabase::class.java, "rick").build()
     }
 
     return INSTANCE

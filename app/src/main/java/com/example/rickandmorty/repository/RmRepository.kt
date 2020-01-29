@@ -1,5 +1,6 @@
 package com.example.rickandmorty.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.rickandmorty.database.RmDatabase
@@ -18,8 +19,12 @@ class RmRepository (private val database: RmDatabase){
 
     suspend fun refreshCharacters(){
         withContext(Dispatchers.IO){
-            val characters = ShowApi.retrofitService.getCharactersAsync().await()
-            database.rmDao.insertAll(*characters.asDatabaseModel())
+            try{
+                val characters = ShowApi.retrofitService.getCharactersAsync().await()
+                database.rmDao.insertAll(*characters.asDatabaseModel())
+            }catch (e : Exception){
+                Log.e("RmRepository", "Unable to get the objects", e)
+            }
         }
     }
 }

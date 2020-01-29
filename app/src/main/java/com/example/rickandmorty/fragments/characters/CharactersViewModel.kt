@@ -1,20 +1,22 @@
 package com.example.rickandmorty.fragments.characters
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.*
+import com.example.rickandmorty.database.getDatabase
 import com.example.rickandmorty.network.ApiStatus
 import com.example.rickandmorty.network.responses.CharactersResponse
 import com.example.rickandmorty.network.ShowApi
 import com.example.rickandmorty.network.responses.CharacterDetailResponse
+import com.example.rickandmorty.repository.RmRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.lang.IllegalArgumentException
 
 
-class CharactersViewModel : ViewModel() {
+class CharactersViewModel(application: Application) : AndroidViewModel(application) {
 
     // Kotlin coroutines related variables
     private val viewModelJob = Job()
@@ -25,40 +27,21 @@ class CharactersViewModel : ViewModel() {
     val status: LiveData<ApiStatus>
         get() = _status
 
-    // Characters list variables
-    private val _characters = MutableLiveData<List<CharacterDetailResponse>>()
-    val characters: LiveData<List<CharacterDetailResponse>>
-        get() = _characters
-
     // Navigation variable
     private val _navigateToSelectedCharacter = MutableLiveData<CharacterDetailResponse>()
     val navigateToSelectedCharacter: LiveData<CharacterDetailResponse>
         get() = _navigateToSelectedCharacter
 
+    private val database = getDatabase(application)
+    private val charactersRepository = RmRepository(database)
     init {
-        getCharactersList()
-    }
-
-    /*
-     * This method will get the list of characters
-     * from the API REST
-     */
-
-    private fun getCharactersList() {
+        // getCharactersList()
         coroutineScope.launch {
-            val getCharactersDeferred = ShowApi.retrofitService.getCharactersAsync()
-            try {
-                _status.value = ApiStatus.LOADING
-                val charactersList = getCharactersDeferred.await()
-                _status.value = ApiStatus.DONE
-                _characters.value = charactersList.results
-            } catch (e: Exception) {
-                _status.value = ApiStatus.ERROR
-                _characters.value = null
-            }
-
+            charactersRepository.refreshCharacters()
         }
     }
+
+    val characters = charactersRepository.characters
 
     /*
      * Clearing the viewModelJob to make sure
@@ -89,5 +72,20 @@ class CharactersViewModel : ViewModel() {
 
     fun displayCharacterDetailComplete(){
         _navigateToSelectedCharacter.value = null
+    }
+
+    fun setApiStatus(status: ApiStatus) {
+        _status.value = status
+    }
+
+    class Factory (val app: Application) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(CharactersViewModel::class.java)){
+                @Suppress("UNCHECKED_CAST")
+                return CharactersViewModel(app) as T
+            }
+            throw IllegalArgumentException("Unable to construct viewModel")
+        }
+
     }
 }
