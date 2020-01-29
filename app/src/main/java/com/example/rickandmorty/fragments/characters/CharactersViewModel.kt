@@ -26,8 +26,8 @@ class CharactersViewModel : ViewModel() {
         get() = _status
 
     // Characters list variables
-    private val _characters = MutableLiveData<CharactersResponse>()
-    val characters: LiveData<CharactersResponse>
+    private val _characters = MutableLiveData<List<CharacterDetailResponse>>()
+    val characters: LiveData<List<CharacterDetailResponse>>
         get() = _characters
 
     // Navigation variable
@@ -51,7 +51,7 @@ class CharactersViewModel : ViewModel() {
                 _status.value = ApiStatus.LOADING
                 val charactersList = getCharactersDeferred.await()
                 _status.value = ApiStatus.DONE
-                _characters.value = charactersList
+                _characters.value = charactersList.results
             } catch (e: Exception) {
                 _status.value = ApiStatus.ERROR
                 _characters.value = null
