@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="location"
+            type="com.example.rickandmorty.network.responses.LocationDetailResponse" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/image_location_background"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_space"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_location_name"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            tools:text="Test text"
+            android:text="@{location.name}"
+            android:textColor="@color/colorTextOnPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/image_location_background"
+            app:layout_constraintEnd_toEndOf="@+id/image_location_background"
+            app:layout_constraintStart_toStartOf="@+id/image_location_background"
+            app:layout_constraintTop_toTopOf="@+id/image_location_background" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

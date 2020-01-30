@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/charactersFragment"
+        android:icon="@drawable/ic_characters"
+        android:title="@string/text_bottom_nav_characters" />
+    <item
+        android:id="@+id/locationsFragment"
+        android:icon="@drawable/ic_locations"
+        android:title="@string/text_bottom_nav_locations" />
+</menu>

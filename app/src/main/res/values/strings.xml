@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Rick and Morty</string>
+
+    <!-- Bottom nav texts -->
+    <string name="text_bottom_nav_characters">Characters</string>
+    <string name="text_bottom_nav_locations">Locations</string>
+    <string name="text_bottom_nav_episodes">Episodes</string>
+
 </resources>
