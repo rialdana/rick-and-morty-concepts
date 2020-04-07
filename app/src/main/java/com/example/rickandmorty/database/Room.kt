@@ -10,7 +10,7 @@ interface RmDao {
     @Query("select * from databasecharacterdetail")
     fun getCharacters(): LiveData<List<DatabaseCharacterDetail>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAll(vararg characters: DatabaseCharacterDetail)
 }
 
