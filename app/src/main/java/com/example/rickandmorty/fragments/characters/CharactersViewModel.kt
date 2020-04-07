@@ -18,10 +18,6 @@ import java.lang.IllegalArgumentException
 
 class CharactersViewModel(application: Application) : AndroidViewModel(application) {
 
-    // Kotlin coroutines related variables
-    private val viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
     // API call status variables
     private val _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
@@ -34,25 +30,14 @@ class CharactersViewModel(application: Application) : AndroidViewModel(applicati
 
     private val database = getDatabase(application)
     private val charactersRepository = RmRepository(database)
+
     init {
-        // getCharactersList()
-        coroutineScope.launch {
+        viewModelScope.launch (Dispatchers.Main) {
             charactersRepository.refreshCharacters()
         }
     }
 
     val characters = charactersRepository.characters
-
-    /*
-     * Clearing the viewModelJob to make sure
-     * that coroutines won't remain in the system even
-     * when the view model is destroyed
-     */
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
 
     /*
      * This method helps us to navigate to the selected character

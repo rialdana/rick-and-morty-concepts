@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.rickandmorty.network.ApiStatus
 import com.example.rickandmorty.network.ShowApi
 import com.example.rickandmorty.network.responses.CharacterDetailResponse
@@ -30,10 +31,6 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
     val status: LiveData<ApiStatus>
         get() = _status
 
-    // Kotlin coroutines related variables
-    private val viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
     /*
         This function will launch a corutine that will try to retrieve
         the character detail from the API rest, in case it's not possible,
@@ -41,7 +38,7 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
      */
 
     fun getCharacterDetail(characterId: Int) {
-        coroutineScope.launch {
+        viewModelScope.launch (Dispatchers.Main) {
             val getCharacterDetailDeferred = ShowApi.retrofitService.getCharacterDetailAsync(characterId)
             try {
                 _status.value = ApiStatus.LOADING
@@ -62,7 +59,7 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
         the URL from the String and get only the Integer value
      */
     private fun getEpisodesId(){
-        coroutineScope.launch {
+        viewModelScope.launch (Dispatchers.Main) {
             val episodesId: MutableList<Int> = arrayListOf()
             _selectedCharacterInfo.value?.episode?.forEach { episodeUrl ->
 
@@ -74,16 +71,6 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
             }
             _selectedCharacterEpisodesList.value = episodesId
         }
-    }
-
-    /*
-        This method is also used to cancel the viewModelJob, which
-        will close or cancel any open coroutine
-     */
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
     }
 
     fun clearValues() {

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.rickandmorty.network.ApiStatus
 import com.example.rickandmorty.network.ShowApi
 import com.example.rickandmorty.network.responses.CharactersResponse
@@ -15,9 +16,6 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class LocationsViewModel : ViewModel(){
-    // Kotlin coroutines related variables
-    private val viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     // API call status variables
     private val _status = MutableLiveData<ApiStatus>()
@@ -34,7 +32,7 @@ class LocationsViewModel : ViewModel(){
     }
 
     private fun getLocationsList(){
-        coroutineScope.launch {
+        viewModelScope.launch (Dispatchers.Main) {
             val getLocationsDeferred = ShowApi.retrofitService.getLocationsAsync()
             try {
                 _status.value = ApiStatus.LOADING
