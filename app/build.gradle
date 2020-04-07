@@ -81,4 +81,10 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
+    // Implementation of viewModel Lifecycle (viewModelJob)
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle_extensions"
+
+    // Implementing kotlin paging
+    implementation "androidx.paging:paging-runtime:$version_paging"
+
 }
