@@ -15,9 +15,6 @@ import kotlinx.coroutines.launch
 
 class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidViewModel(app) {
 
-    // Variable that holds the character ID from the safe args and constructor
-    private val _selectedCharacterId = MutableLiveData<Int>()
-
     // Object that holds the character Info from the API REST
     private val _selectedCharacterInfo = MutableLiveData<CharacterDetailResponse>()
     val selectedCharacterInfo: LiveData<CharacterDetailResponse>
@@ -37,18 +34,13 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    init {
-        _selectedCharacterId.value = characterId
-        getCharacterDetail(_selectedCharacterId.value!!)
-    }
-
     /*
         This function will launch a corutine that will try to retrieve
         the character detail from the API rest, in case it's not possible,
         it will throw an exception
      */
 
-    private fun getCharacterDetail(characterId: Int) {
+    fun getCharacterDetail(characterId: Int) {
         coroutineScope.launch {
             val getCharacterDetailDeferred = ShowApi.retrofitService.getCharacterDetailAsync(characterId)
             try {
@@ -92,5 +84,10 @@ class CharacterDetailViewModel(characterId: Int, app: Application) : AndroidView
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    fun clearValues() {
+        _selectedCharacterInfo.value = null
+        _selectedCharacterEpisodesList.value = null
     }
 }

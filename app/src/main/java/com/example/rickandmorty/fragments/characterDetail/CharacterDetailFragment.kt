@@ -40,9 +40,14 @@ class CharacterDetailFragment : Fragment() {
         val viewModelFactory = CharacterDetailViewModelFactory(characterId, application)
 
         // Sending the viewModel to the view using data binding
-        binding.viewModel = activity?.run {
+        val viewModel = activity?.run {
             ViewModelProvider(this, viewModelFactory)[CharacterDetailViewModel::class.java]
         }?: throw Exception("Invalid activity")
+        viewModel.clearValues()
+
+        binding.viewModel = viewModel
+
+        viewModel.getCharacterDetail(characterId)
 
         // Setting the onClickListener for the items in the grid
         binding.gridEpisodes.adapter = EpisodesAdapter(EpisodesAdapter.OnClickListener {
