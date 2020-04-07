@@ -14,6 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Url
 import java.util.concurrent.TimeUnit
 
 
@@ -62,6 +63,13 @@ interface ApiService {
      */
     @GET("character/")
     fun getCharactersAsync() : Deferred<CharactersResponse>
+
+    /*
+     * This method returns a list of characters from the endpoint,
+     * it's url is passed as a parameter because this will be used for paging adapter.
+     */
+    @GET
+    fun getPagedCharactersAsync(@Url url: String) : Deferred<CharactersResponse>
 
     /*
      * This method returns the specific characterId information
