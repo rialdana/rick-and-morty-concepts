@@ -42,7 +42,7 @@ class CharacterDetailFragment : Fragment() {
         // Sending the viewModel to the view using data binding
         val viewModel = activity?.run {
             ViewModelProvider(this, viewModelFactory)[CharacterDetailViewModel::class.java]
-        }?: throw Exception("Invalid activity")
+        }?: throw Exception("Invalid activity exception")
         viewModel.clearValues()
 
         binding.viewModel = viewModel
